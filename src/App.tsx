@@ -6,6 +6,7 @@ import { GiftResults } from './components/Calculator/GiftResults'
 import { LoadingAnimation } from './components/Calculator/LoadingAnimation'
 import { Footer } from './components/Layout/Footer'
 import { Header } from './components/Layout/Header'
+import { PWANote } from './components/Layout/PWANote'
 import { useWeddingGift } from './hooks/useWeddingGift'
 
 const App: React.FC = () => {
@@ -36,7 +37,7 @@ const App: React.FC = () => {
 		"Che la magia di questo 'Sì' risuoni per sempre nel vostro quotidiano.",
 		"In un mondo che corre, l'amore è l'unico porto sicuro dove fermarsi e restare.",
 		"Costruite la vostra felicità mattone dopo mattone, con la pazienza e la dolcezza dell'amore.",
-		'Il matrimonio è un mosaico che si costruisce giorno dopo giorno, fatto di piccoli gesti infiniti.',
+		'Il matrimonio è un mosaico che si costruire giorno dopo giorno, fatto di piccoli gesti infiniti.',
 	]
 
 	const randomQuote = useRef(
@@ -120,6 +121,8 @@ const App: React.FC = () => {
 					"{randomQuote}"
 				</p>
 			</section>
+
+			<PWANote />
 
 			<Footer />
 		</div>
