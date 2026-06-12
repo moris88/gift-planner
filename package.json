@@ -1,7 +1,9 @@
 {
-	"name": "gift-planner",
+	"name": "wedding-gift-planner",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.1.0",
+	"description": "Un calcolatore intelligente e divertente per determinare il budget ideale per un regalo di matrimonio.",
+
 	"author": {
 		"name": "Maurizio Tolomeo",
 		"email": "maurizio.tolomeo@outlook.it",
