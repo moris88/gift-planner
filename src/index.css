@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer base {
+	:root {
+		--sans: system-ui, "Segoe UI", Roboto, sans-serif;
+	}
+}
