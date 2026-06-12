@@ -11,6 +11,7 @@ interface CalculationInfoProps {
 	breakdown: CalculationStep[]
 	customPlateMin: number
 	customPlateMax: number
+	infants: number
 }
 
 export const CalculationInfo: React.FC<CalculationInfoProps> = ({
@@ -21,6 +22,7 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 	breakdown,
 	customPlateMin,
 	customPlateMax,
+	infants,
 }) => {
 	const [showInfo, setShowInfo] = useState(true)
 
@@ -55,6 +57,15 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 									: `€${Math.round(customPlateMin * 0.6)}-€${Math.round(customPlateMax * 0.6)}`}{' '}
 							per adulto) più un margine variabile legato al legame affettivo.
 						</p>
+
+						{infants > 0 && (
+							<div className="rounded-lg border-emerald-400 border-l-4 bg-emerald-50 p-3 text-emerald-800">
+								<strong>👶 Nota sui Neonati:</strong> Abbiamo escluso i neonati
+								({infants}) dal calcolo economico poiché le strutture
+								solitamente non applicano costi per i più piccoli. Il loro posto
+								a tavola è un regalo degli sposi!
+							</div>
+						)}
 
 						{eventType !== 'full' && (
 							<div className="rounded-lg border-rose-400 border-l-4 bg-slate-50 p-3">

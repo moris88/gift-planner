@@ -77,6 +77,7 @@ const App: React.FC = () => {
 								breakdown={result.breakdown}
 								customPlateMin={prefs.customPlateMin}
 								customPlateMax={prefs.customPlateMax}
+								infants={prefs.infants}
 							/>
 						</div>
 					)}

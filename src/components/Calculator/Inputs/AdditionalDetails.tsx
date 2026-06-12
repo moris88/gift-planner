@@ -79,7 +79,7 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 							}}
 							className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-2 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500"
 						>
-							{[60, 80, 100, 120, 150, 180, 200, 250, 300].map((v) => (
+							{[120, 150, 180, 200, 250, 300, 350, 400, 450, 500].map((v) => (
 								<option key={v} value={v}>
 									€{v}
 								</option>
@@ -103,7 +103,7 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 							}}
 							className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-2 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500"
 						>
-							{[60, 80, 100, 120, 150, 180, 200, 250, 300].map((v) => (
+							{[120, 150, 180, 200, 250, 300, 350, 400, 450, 500].map((v) => (
 								<option key={v} value={v}>
 									€{v}
 								</option>
