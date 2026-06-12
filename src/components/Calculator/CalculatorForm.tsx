@@ -12,11 +12,15 @@ interface CalculatorFormProps {
 		key: K,
 		value: UserPreferences[K],
 	) => void
+	onCalculate: () => void
+	isCalculating: boolean
 }
 
 export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 	prefs,
 	updatePref,
+	onCalculate,
+	isCalculating,
 }) => {
 	return (
 		<div className="space-y-6">
@@ -60,6 +64,15 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 						customPlateMax={prefs.customPlateMax}
 						updatePref={updatePref}
 					/>
+
+					<button
+						type="button"
+						onClick={onCalculate}
+						disabled={isCalculating}
+						className="w-full rounded-xl bg-rose-500 py-4 font-bold text-white shadow-lg shadow-rose-200 transition-all hover:bg-rose-600 hover:shadow-rose-300 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
+					>
+						{isCalculating ? 'Calcolo in corso...' : 'Calcola Regalo'}
+					</button>
 				</div>
 			</section>
 		</div>

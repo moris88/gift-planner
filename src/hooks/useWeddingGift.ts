@@ -55,6 +55,43 @@ export const useWeddingGift = () => {
 		return DEFAULT_PREFS
 	})
 
+	const [isCalculating, setIsCalculating] = useState(false)
+	const [showResults, setShowResults] = useState(false)
+	const [loadingMessage, setLoadingMessage] = useState('')
+
+	const MESSAGES = [
+		'Analizzando il legame di parentela... (speriamo siano simpatici)',
+		'Controllando il prezzo del caviale al mercato nero...',
+		'Calcolando quante bomboniere prenderai a polvere...',
+		"Verificando se c'è l'open bar (questo cambia tutto!)",
+		'Contando i confetti nel sacchetto...',
+		"Consultando l'ufficio complicazioni affari semplici...",
+		'Sbirciando nella busta del vicino di tavolo...',
+		"Valutando l'impatto del DJ set anni '90...",
+		'Misurando la distanza dal buffet di dolci...',
+		"Interpellando l'oracolo dei testimoni di nozze...",
+		'Studiando il galateo del 1950 (e ignorandolo)...',
+		"Pesando l'oro della bomboniera d'argento...",
+		"Calcolando l'inflazione sui regali di nozze dal 2000...",
+		'Analizzando la probabilità di un ballo di gruppo imbarazzante...',
+		"Cercando di capire se 'niente regali' è una trappola...",
+		'Stimando il costo della torta a 7 piani...',
+		'Verificando la qualità del vino della casa...',
+		'Calcolando quante ore durerà il servizio fotografico...',
+		'Verificando la presenza di parenti serpenti...',
+		'Simulando il lancio del bouquet in slow motion...',
+		"Valutando la resistenza del fegato all'open bar...",
+		'Calcolando il ricarico sui fiori fuori stagione...',
+		'Controllando se il testimone ha perso le fedi...',
+		'Analizzando la scaletta musicale (evitiamo i lenti)...',
+		"Misurando l'entusiasmo della zia per il centro tavola...",
+		'Verificando che lo sposo non sia scappato...',
+		"Contando quanti 'viva gli sposi' serviranno...",
+		"Studiando il posizionamento strategico vicino all'uscita...",
+		'Calcolando il coefficiente di commozione della cerimonia...',
+		'Verificando la compatibilità degli invitati al tavolo 12...',
+	]
+
 	useEffect(() => {
 		localStorage.setItem('wedding_gift_prefs', JSON.stringify(prefs))
 	}, [prefs])
@@ -64,6 +101,22 @@ export const useWeddingGift = () => {
 		value: UserPreferences[K],
 	) => {
 		setPrefs((prev) => ({ ...prev, [key]: value }))
+		// Hide results when prefs change so they can recalculate
+		setShowResults(false)
+	}
+
+	const calculate = () => {
+		setIsCalculating(true)
+		setShowResults(false)
+
+		const randomMessage = MESSAGES[Math.floor(Math.random() * MESSAGES.length)]
+		setLoadingMessage(randomMessage)
+
+		// Simulate calculation time
+		setTimeout(() => {
+			setIsCalculating(false)
+			setShowResults(true)
+		}, 3500)
 	}
 
 	const result = useMemo<CalculationResult>(() => {
@@ -81,20 +134,28 @@ export const useWeddingGift = () => {
 
 		// 1. Base Calculation (Using custom plate costs as baseline)
 		// We calculate the raw base first, then apply the relationship weight
-		const relationWeight = (data.adult[0] / 180); // Use friend_standard (150-180) as base weight 1.0
+		const relationWeight = data.adult[0] / 180 // Use friend_standard (150-180) as base weight 1.0
 
-		let min = (prefs.adults * prefs.customPlateMin + prefs.children * (prefs.customPlateMin * 0.5)) * relationWeight * region.multiplier;
-		let max = (prefs.adults * prefs.customPlateMax + prefs.children * (prefs.customPlateMax * 0.5)) * relationWeight * region.multiplier;
+		let min =
+			(prefs.adults * prefs.customPlateMin +
+				prefs.children * (prefs.customPlateMin * 0.5)) *
+			relationWeight *
+			region.multiplier
+		let max =
+			(prefs.adults * prefs.customPlateMax +
+				prefs.children * (prefs.customPlateMax * 0.5)) *
+			relationWeight *
+			region.multiplier
 
 		breakdown.push({
 			label: `Base per ${data.label} (${prefs.adults} Ad. + ${prefs.children} Bamb.)`,
 			value: `€${Math.round(min)} - €${Math.round(max)}`,
-		});
+		})
 
 		breakdown.push({
 			label: `Adeguamento Regionale (${region.label} x${region.multiplier})`,
-			value: "Incluso nella base",
-		});
+			value: 'Incluso nella base',
+		})
 
 		// 2. Event Type
 		if (prefs.eventType !== 'full') {
@@ -107,8 +168,8 @@ export const useWeddingGift = () => {
 			})
 		}
 
-		const canApplySecondaryGuest = prefs.adults <= 2;
-		const isSecondaryGuestActive = canApplySecondaryGuest && prefs.isPlusOne;
+		const canApplySecondaryGuest = prefs.adults <= 2
+		const isSecondaryGuestActive = canApplySecondaryGuest && prefs.isPlusOne
 
 		// 3. Secondary Guest
 		if (isSecondaryGuestActive) {
@@ -116,76 +177,80 @@ export const useWeddingGift = () => {
 				(prefs.adults * prefs.customPlateMin +
 					prefs.children * (prefs.customPlateMin * 0.5)) *
 				region.multiplier *
-				eventMultiplier;
-				
+				eventMultiplier
+
 			if (min > bareMinimum) {
-				min = bareMinimum;
-				max = bareMinimum;
+				min = bareMinimum
+				max = bareMinimum
 				breakdown.push({
-					label: "Invitato Secondario (Ridotto al solo costo stimato del pasto)",
+					label:
+						'Invitato Secondario (Ridotto al solo costo stimato del pasto)',
 					value: `Ricalcolato: €${Math.round(min)} - €${Math.round(max)}`,
-				});
+				})
 			} else {
-				const deduction = 30;
-				min -= deduction;
-				max -= deduction;
+				const deduction = 30
+				min -= deduction
+				max -= deduction
 				breakdown.push({
-					label: "Invitato Secondario (Ulteriore riduzione forfait)",
+					label: 'Invitato Secondario (Ulteriore riduzione forfait)',
 					value: `-€${deduction}`,
-				});
+				})
 			}
 		}
 
 		// 4. Reciprocity
 		if (!isSecondaryGuestActive) {
-			if (prefs.reciprocity === "received_similar" && prefs.receivedAmount > 0) {
+			if (
+				prefs.reciprocity === 'received_similar' &&
+				prefs.receivedAmount > 0
+			) {
 				const baselinePerPerson =
-					prefs.receivedAmount / (prefs.receivedGroupSize || 1);
+					prefs.receivedAmount / (prefs.receivedGroupSize || 1)
 				const reciprocityBaseline =
-					baselinePerPerson * (prefs.adults + prefs.children * 0.5);
+					baselinePerPerson * (prefs.adults + prefs.children * 0.5)
 
-				min = reciprocityBaseline * 0.95;
-				max = reciprocityBaseline * 1.05;
+				min = reciprocityBaseline * 0.95
+				max = reciprocityBaseline * 1.05
 				breakdown.push({
 					label: `Reciprocità (Basata su €${prefs.receivedAmount} ricevuti)`,
 					value: `€${Math.round(min)} - €${Math.round(max)}`,
-				});
-			} else if (prefs.reciprocity === "to_match") {
-				min *= 1.5;
-				max *= 1.5;
+				})
+			} else if (prefs.reciprocity === 'to_match') {
+				min *= 1.5
+				max *= 1.5
 				breakdown.push({
-					label: "Reciprocità (Regalo Generoso +50%)",
+					label: 'Reciprocità (Regalo Generoso +50%)',
 					value: `€${Math.round(min)} - €${Math.round(max)}`,
-				});
+				})
 			}
 
 			// 5. Seniority
 			if (
-				prefs.seniority === "historical" &&
-				(prefs.relation.includes("friend") ||
-					prefs.relation === "family_distant" ||
-					prefs.relation === "family_remote")
+				prefs.seniority === 'historical' &&
+				(prefs.relation.includes('friend') ||
+					prefs.relation === 'family_distant' ||
+					prefs.relation === 'family_remote')
 			) {
-				const addedMin = prefs.adults * 25;
-				const addedMax = prefs.adults * 40;
-				min += addedMin;
-				max += addedMax;
+				const addedMin = prefs.adults * 25
+				const addedMax = prefs.adults * 40
+				min += addedMin
+				max += addedMax
 				breakdown.push({
-					label: "Anzianità / Legame Storico",
+					label: 'Anzianità / Legame Storico',
 					value: `+€${addedMin} - €${addedMax}`,
-				});
+				})
 			}
 
 			// 6. Luxury
 			if (prefs.isLuxury) {
-				const addedMin = prefs.adults * 30;
-				const addedMax = prefs.adults * 50;
-				min += addedMin;
-				max += addedMax;
+				const addedMin = prefs.adults * 30
+				const addedMax = prefs.adults * 50
+				min += addedMin
+				max += addedMax
 				breakdown.push({
-					label: "Location di Lusso",
+					label: 'Location di Lusso',
 					value: `+€${addedMin} - €${addedMax}`,
-				});
+				})
 			}
 		}
 
@@ -237,7 +302,10 @@ export const useWeddingGift = () => {
 			})
 		}
 
-		const average = Math.round((min + max) / 2)
+		// Helper to round up to nearest 50
+		const roundUp50 = (num: number) => Math.ceil(num / 50) * 50
+
+		const average = roundUp50((min + max) / 2)
 
 		// Calculate Affective Margin for transparency
 		// We use the custom plate costs and event type for the base calculation
@@ -266,5 +334,9 @@ export const useWeddingGift = () => {
 		prefs,
 		updatePref,
 		result,
+		isCalculating,
+		showResults,
+		loadingMessage,
+		calculate,
 	}
 }

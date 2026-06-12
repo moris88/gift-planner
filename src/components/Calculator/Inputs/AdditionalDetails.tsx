@@ -60,29 +60,56 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 					htmlFor="customPlateMin"
 					className="font-medium text-slate-500 text-xs uppercase tracking-wider"
 				>
-					Range Costo Ricevimento Stimato (€) Min - Max
+					Range Costo Ricevimento Stimato (€)
 				</label>
 				<div className="flex items-center gap-2">
-					<input
-						id="customPlateMin"
-						type="number"
-						value={customPlateMin}
-						onChange={(e) =>
-							updatePref('customPlateMin', parseInt(e.target.value, 10) || 0)
-						}
-						className="w-full rounded-lg border border-slate-200 bg-slate-50 px-2 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500"
-						placeholder="Min"
-					/>
-					<span className="text-slate-400">-</span>
-					<input
-						type="number"
-						value={customPlateMax}
-						onChange={(e) =>
-							updatePref('customPlateMax', parseInt(e.target.value, 10) || 0)
-						}
-						className="w-full rounded-lg border border-slate-200 bg-slate-50 px-2 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500"
-						placeholder="Max"
-					/>
+					<div className="flex-1 space-y-1">
+						<span className="font-bold text-[10px] text-slate-400 uppercase">
+							Minimo
+						</span>
+						<select
+							id="customPlateMin"
+							value={customPlateMin}
+							onChange={(e) => {
+								const val = parseInt(e.target.value, 10)
+								updatePref('customPlateMin', val)
+								if (val > customPlateMax) {
+									updatePref('customPlateMax', val)
+								}
+							}}
+							className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-2 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500"
+						>
+							{[60, 80, 100, 120, 150, 180, 200, 250, 300].map((v) => (
+								<option key={v} value={v}>
+									€{v}
+								</option>
+							))}
+						</select>
+					</div>
+					<span className="mt-4 text-slate-400">-</span>
+					<div className="flex-1 space-y-1">
+						<span className="font-bold text-[10px] text-slate-400 uppercase">
+							Massimo
+						</span>
+						<select
+							id="customPlateMax"
+							value={customPlateMax}
+							onChange={(e) => {
+								const val = parseInt(e.target.value, 10)
+								updatePref('customPlateMax', val)
+								if (val < customPlateMin) {
+									updatePref('customPlateMin', val)
+								}
+							}}
+							className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-2 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500"
+						>
+							{[60, 80, 100, 120, 150, 180, 200, 250, 300].map((v) => (
+								<option key={v} value={v}>
+									€{v}
+								</option>
+							))}
+						</select>
+					</div>
 				</div>
 			</div>
 
@@ -215,7 +242,9 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500"
 					/>
 					<div className="flex flex-col">
-						<span className="font-medium text-sm">Spese Addio Celibato</span>
+						<span className="font-medium text-sm">
+							Spese Addio Celibato/Nubilato
+						</span>
 						<span className="text-[10px] text-slate-500">
 							Già speso per eventi pre-matrimoniali (- quota)
 						</span>

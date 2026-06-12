@@ -4,13 +4,13 @@ import { useState } from 'react'
 import type { CalculationStep, EventType } from '../../types'
 
 interface CalculationInfoProps {
-	eventType: EventType;
-	isLongDistance: boolean;
-	externalExpenses: number;
-	preWeddingSpend: boolean;
-	breakdown: CalculationStep[];
-	customPlateMin: number;
-	customPlateMax: number;
+	eventType: EventType
+	isLongDistance: boolean
+	externalExpenses: number
+	preWeddingSpend: boolean
+	breakdown: CalculationStep[]
+	customPlateMin: number
+	customPlateMax: number
 }
 
 export const CalculationInfo: React.FC<CalculationInfoProps> = ({
@@ -22,7 +22,7 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 	customPlateMin,
 	customPlateMax,
 }) => {
-	const [showInfo, setShowInfo] = useState(false);
+	const [showInfo, setShowInfo] = useState(true)
 
 	return (
 		<section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -36,7 +36,7 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 					<h2 className="font-semibold text-lg">Nota sul Calcolo</h2>
 				</div>
 				<div
-					className={`transition-transform duration-300 ${showInfo ? "rotate-180" : ""}`}
+					className={`transition-transform duration-300 ${showInfo ? 'rotate-180' : ''}`}
 				>
 					<span className="text-slate-300 group-hover:text-slate-500">▼</span>
 				</div>
@@ -46,13 +46,13 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 				<div className="fade-in slide-in-from-top-4 mt-6 animate-in space-y-6 text-slate-600 text-sm duration-300">
 					<div className="space-y-4">
 						<p>
-							Il calcolo si basa sulla copertura del{" "}
+							Il calcolo si basa sulla copertura del{' '}
 							<strong>costo stimato del ricevimento</strong> (
-							{eventType === "full"
+							{eventType === 'full'
 								? `€${customPlateMin}-€${customPlateMax}`
-								: eventType === "half_day"
+								: eventType === 'half_day'
 									? `€${Math.round(customPlateMin * 0.8)}-€${Math.round(customPlateMax * 0.8)}`
-									: `€${Math.round(customPlateMin * 0.6)}-€${Math.round(customPlateMax * 0.6)}`}{" "}
+									: `€${Math.round(customPlateMin * 0.6)}-€${Math.round(customPlateMax * 0.6)}`}{' '}
 							per adulto) più un margine variabile legato al legame affettivo.
 						</p>
 

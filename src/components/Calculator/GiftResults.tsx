@@ -57,8 +57,13 @@ export const GiftResults: React.FC<GiftResultsProps> = ({ result }) => {
 				)}
 			</div>
 
-			<div className="rounded-full bg-rose-600/50 px-4 py-2 pt-2 font-medium text-[10px] backdrop-blur-sm">
-				Legame: {result.effectiveRelation}
+			<div className="flex flex-wrap justify-center gap-2">
+				<div className="rounded-full bg-rose-600/50 px-4 py-2 pt-2 font-medium text-[10px] backdrop-blur-sm">
+					Legame: {result.effectiveRelation}
+				</div>
+				<div className="rounded-full bg-white/20 px-4 py-2 pt-2 font-bold text-[10px] uppercase tracking-wider backdrop-blur-sm">
+					Calcolo Personalizzato ✨
+				</div>
 			</div>
 		</section>
 	)
