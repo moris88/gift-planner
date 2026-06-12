@@ -1,6 +1,6 @@
+import { Download } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import { Download } from 'lucide-react'
 
 export const PWANote: React.FC = () => {
 	const [showNote, setShowNote] = useState(false)
@@ -23,10 +23,16 @@ export const PWANote: React.FC = () => {
 					<Download className="h-5 w-5" />
 				</div>
 				<div className="text-sm">
-					<p className="font-semibold text-rose-900">Installa l'app su Android</p>
+					<p className="font-semibold text-rose-900">
+						Installa l'app su Android
+					</p>
 					<p className="text-rose-700">
 						Tocca i tre puntini <span className="font-bold">⋮</span> in alto a
-						destra nel browser e seleziona <span className="font-bold">"Installa app" oppure "Aggiungi a schermata Home"</span> per un accesso rapido.
+						destra nel browser e seleziona{' '}
+						<span className="font-bold">
+							"Installa app" oppure "Aggiungi a schermata Home"
+						</span>{' '}
+						per un accesso rapido.
 					</p>
 				</div>
 			</div>
