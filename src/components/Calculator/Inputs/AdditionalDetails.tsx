@@ -294,7 +294,7 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 							Ho già fatto un regalo fisico
 						</span>
 						<span className="text-[10px] text-slate-500">
-							Elettrodomestici, lista nozze o oggetti già consegnati
+							Mobilio, elettrodomestici o lista nozze (- quota)
 						</span>
 					</div>
 				</label>
