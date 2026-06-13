@@ -62,11 +62,14 @@ export const FamilyInput: React.FC<FamilyInputProps> = ({
 							</option>
 						))}
 					</select>
+					<small className="text-[10px] text-slate-500 italic">
+						Età tra 2 e 12 anni
+					</small>
 				</div>
 				<div className="space-y-2">
 					<label
 						htmlFor="infants"
-						className="flex items-center gap-2 text-sm opacity-50"
+						className="flex items-center gap-2 text-sm"
 					>
 						<Baby className="h-4 w-4" /> Neonati
 					</label>
@@ -84,6 +87,9 @@ export const FamilyInput: React.FC<FamilyInputProps> = ({
 							</option>
 						))}
 					</select>
+					<small className="text-[10px] text-slate-500 italic">
+						Età tra 0 e 2 anni
+					</small>
 				</div>
 			</div>
 		</div>
