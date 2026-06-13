@@ -1,4 +1,10 @@
-import { Banknote, ChevronDown, Heart, TrendingUp } from 'lucide-react'
+import {
+	AlertTriangle,
+	Banknote,
+	ChevronDown,
+	Heart,
+	TrendingUp,
+} from 'lucide-react'
 import type React from 'react'
 import { useState } from 'react'
 import type { GenerosityType, UserPreferences } from '../../../types'
@@ -26,6 +32,11 @@ const GENEROSITY_OPTIONS: {
 	value: GenerosityType
 	desc: string
 }[] = [
+	{
+		label: 'Relazione Tesa / Litigio (-50%)',
+		value: 'essential',
+		desc: 'Regalo ridotto a causa di attriti o discussioni',
+	},
 	{ label: 'Normale', value: 'normal', desc: 'Regalo standard e corretto' },
 	{
 		label: 'Media (+20%)',
@@ -150,8 +161,14 @@ export const FinancialInput: React.FC<FinancialInputProps> = ({
 					</div>
 
 					{generosity !== 'normal' && (
-						<div className="flex items-center gap-2 rounded-lg bg-rose-50 p-2 text-rose-700 text-xs">
-							<Heart className="h-3.5 w-3.5 fill-rose-500 text-rose-500" />
+						<div
+							className={`flex items-center gap-2 rounded-lg p-2 text-xs ${generosity === 'essential' ? 'bg-orange-50 text-orange-700' : 'bg-rose-50 text-rose-700'}`}
+						>
+							{generosity === 'essential' ? (
+								<AlertTriangle className="h-3.5 w-3.5 text-orange-500" />
+							) : (
+								<Heart className="h-3.5 w-3.5 fill-rose-500 text-rose-500" />
+							)}
 							<span>
 								Hai scelto una generosità{' '}
 								<strong>

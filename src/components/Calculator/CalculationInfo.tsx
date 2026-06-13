@@ -1,11 +1,11 @@
-import { Info } from 'lucide-react'
+import { AlertTriangle, Info } from 'lucide-react'
 import type React from 'react'
 import { useState } from 'react'
-import type { CalculationStep, EventType } from '../../types'
+import type { CalculationStep, DistanceType, EventType } from '../../types'
 
 interface CalculationInfoProps {
 	eventType: EventType
-	isLongDistance: boolean
+	distanceType: DistanceType
 	externalExpenses: number
 	preWeddingSpend: boolean
 	breakdown: CalculationStep[]
@@ -21,7 +21,7 @@ interface CalculationInfoProps {
 
 export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 	eventType,
-	isLongDistance,
+	distanceType,
 	externalExpenses,
 	preWeddingSpend,
 	breakdown,
@@ -89,12 +89,16 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 							</div>
 						)}
 
-						{isLongDistance && externalExpenses > 0 && (
+						{distanceType !== 'none' && (
 							<div className="rounded-lg border-blue-400 border-l-4 bg-blue-50 p-3">
-								<strong>Compromesso Trasferta:</strong> Dato che spendi €
-								{externalExpenses} tra viaggio e hotel, abbiamo ridotto il
-								regalo consigliato per aiutarti a bilanciare il budget,
-								mantenendo comunque una quota minima per gli sposi.
+								<strong>
+									Trasferta {distanceType === 'medium' ? 'Media' : 'Lunga'}:
+								</strong>{' '}
+								{distanceType === 'medium'
+									? 'Abbiamo applicato una riduzione forfettaria del 10% per compensare i piccoli costi di viaggio (entro provincia/regione).'
+									: externalExpenses > 0
+										? `Dato che spendi €${externalExpenses} tra viaggio e hotel, abbiamo ridotto il regalo consigliato per aiutarti a bilanciare il budget.`
+										: 'Il sistema è pronto a calcolare una detrazione sulle spese di viaggio se indicate.'}
 							</div>
 						)}
 
@@ -118,6 +122,17 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 								<strong>📈 Strategia Patrimoniale:</strong> Avendo investimenti
 								attivi, abbiamo ridotto del 10% la quota liquida del regalo per
 								non intaccare i tuoi piani di risparmio.
+							</div>
+						)}
+
+						{generosity === 'essential' && (
+							<div className="rounded-lg border-orange-400 border-l-4 bg-orange-50 p-3 text-orange-800">
+								<div className="flex items-center gap-2">
+									<AlertTriangle className="h-4 w-4 text-orange-600" />
+									<strong>Relazione Tesa / Litigio:</strong>
+								</div>
+								Hai scelto di ridurre il regalo del 50% a causa di attriti o
+								discussioni con gli sposi.
 							</div>
 						)}
 

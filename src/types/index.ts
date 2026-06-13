@@ -16,7 +16,13 @@ export type EventType = 'full' | 'half_day' | 'evening'
 export type SeniorityType = 'recent' | 'historical'
 export type ReciprocityType = 'none' | 'received_similar' | 'to_match'
 export type RegionType = 'north' | 'center' | 'south'
-export type GenerosityType = 'normal' | 'medium' | 'high' | 'super'
+export type GenerosityType =
+	| 'essential'
+	| 'normal'
+	| 'medium'
+	| 'high'
+	| 'super'
+export type DistanceType = 'none' | 'medium' | 'long'
 
 export interface UserPreferences {
 	adults: number
@@ -28,7 +34,7 @@ export interface UserPreferences {
 	seniority: SeniorityType
 	reciprocity: ReciprocityType
 	isLuxury: boolean
-	isLongDistance: boolean
+	distanceType: DistanceType
 	isPlusOne: boolean
 	preWeddingSpend: boolean
 	preWeddingAmount: number

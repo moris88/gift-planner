@@ -16,7 +16,7 @@ const DEFAULT_PREFS: UserPreferences = {
 	seniority: 'historical',
 	reciprocity: 'none',
 	isLuxury: false,
-	isLongDistance: false,
+	distanceType: 'none',
 	isPlusOne: false,
 	preWeddingSpend: false,
 	preWeddingAmount: 20,
@@ -42,6 +42,7 @@ const REGION_FACTORS = {
 }
 
 const GENEROSITY_FACTORS = {
+	essential: { label: 'Relazione Tesa / Litigio', multiplier: 0.5 },
 	normal: { label: 'Normale', multiplier: 1.0 },
 	medium: { label: 'Media', multiplier: 1.2 },
 	high: { label: 'Alta', multiplier: 1.4 },
@@ -270,40 +271,52 @@ export const useWeddingGift = () => {
 		}
 
 		// 7. Travel Cost
-		const totalTravelCost =
-			(prefs.adults + prefs.children + prefs.infants) *
-			prefs.travelCostPerPerson
-		const totalHotelCost = prefs.hotelNights * prefs.hotelNightCost
-		const totalExternalExpenses = prefs.isLongDistance
-			? totalTravelCost + totalHotelCost
-			: 0
+		let totalExternalExpenses = 0
 
-		if (prefs.isLongDistance && totalExternalExpenses > 0) {
-			const travelDeduction = totalExternalExpenses * 0.35
-			min -= travelDeduction
-			max -= travelDeduction
+		if (prefs.distanceType === 'medium') {
+			const reductionMultiplier = 0.9 // -10%
+			min *= reductionMultiplier
+			max *= reductionMultiplier
+			breakdown.push({
+				label: 'Trasferta Distanza Media (-10%)',
+				value: '-10%',
+			})
+		} else if (prefs.distanceType === 'long') {
+			const totalTravelCost =
+				(prefs.adults + prefs.children + prefs.infants) *
+				prefs.travelCostPerPerson
+			const totalHotelCost = prefs.hotelNights * prefs.hotelNightCost
+			totalExternalExpenses = totalTravelCost + totalHotelCost
 
-			// Floor logic using custom plate costs
-			const floor =
-				(prefs.adults * prefs.customPlateMin +
-					prefs.children * (prefs.customPlateMin * 0.4)) *
-				region.multiplier *
-				eventMultiplier
+			if (totalExternalExpenses > 0) {
+				const travelDeduction = totalExternalExpenses * 0.35
+				min -= travelDeduction
+				max -= travelDeduction
 
-			if (min < floor) {
-				min = floor
-				max = Math.max(max, floor * 1.1)
-				breakdown.push({
-					label: 'Detrazione Trasferta (Limitata per coprire costo pasto)',
-					value: `€${Math.round(min)} - €${Math.round(max)}`,
-				})
-			} else {
-				breakdown.push({
-					label: 'Detrazione Trasferta (35% spese vive)',
-					value: `-€${Math.round(travelDeduction)}`,
-				})
+				// Floor logic using custom plate costs
+				const floor =
+					(prefs.adults * prefs.customPlateMin +
+						prefs.children * (prefs.customPlateMin * 0.4)) *
+					region.multiplier *
+					eventMultiplier
+
+				if (min < floor) {
+					min = floor
+					max = Math.max(max, floor * 1.1)
+					breakdown.push({
+						label:
+							'Detrazione Trasferta Lunga (Limitata per coprire costo pasto)',
+						value: `€${Math.round(min)} - €${Math.round(max)}`,
+					})
+				} else {
+					breakdown.push({
+						label: 'Detrazione Trasferta Lunga (35% spese vive)',
+						value: `-€${Math.round(travelDeduction)}`,
+					})
+				}
 			}
 		}
+
 		// 8. Pre-Wedding
 		if (prefs.preWeddingSpend) {
 			const deduction = prefs.preWeddingAmount
@@ -355,7 +368,7 @@ export const useWeddingGift = () => {
 			const diff = Math.round((generosity.multiplier - 1) * 100)
 			breakdown.push({
 				label: `Livello Generosità (${generosity.label})`,
-				value: `+${diff}%`,
+				value: `${diff > 0 ? '+' : ''}${diff}%`,
 			})
 		}
 

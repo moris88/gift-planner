@@ -73,7 +73,7 @@ const App: React.FC = () => {
 
 							<CalculationInfo
 								eventType={prefs.eventType}
-								isLongDistance={prefs.isLongDistance}
+								distanceType={prefs.distanceType}
 								externalExpenses={result.externalExpenses}
 								preWeddingSpend={prefs.preWeddingSpend}
 								breakdown={result.breakdown}

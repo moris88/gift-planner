@@ -59,7 +59,9 @@ Una volta calcolata la base per relazione, vengono applicati i bonus/malus:
 
 Se hai spese per partecipare, l'algoritmo le sottrae parzialmente:
 
-- **Viaggio/Hotel**: Viene sottratto il **35%** delle spese totali che hai sostenuto.
+- **Viaggio/Hotel**: In base alla distanza, viene sottratta una quota delle spese totali (viaggio + hotel) che hai sostenuto:
+    - **Distanza Lunga**: Sottrazione del **35%**.
+    - **Distanza Media**: Sottrazione del **15%**.
 - **Limite (Floor)**: Il calcolo garantisce sempre che tu non regali meno di quanto gli sposi spendano per il tuo pasto (Costo Piatto + 40% per i bambini). Non andrai mai "in debito" con gli sposi.
 
 ---
