@@ -69,7 +69,12 @@ const App: React.FC = () => {
 
 					{showResults && !isCalculating && (
 						<div className="fade-in slide-in-from-right-4 animate-in space-y-8 duration-500">
-							<GiftResults result={result} />
+							<GiftResults
+								result={result}
+								adults={prefs.adults}
+								children={prefs.children}
+								infants={prefs.infants}
+							/>
 
 							<CalculationInfo
 								eventType={prefs.eventType}

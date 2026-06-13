@@ -89,6 +89,12 @@ export const FamilyInput: React.FC<FamilyInputProps> = ({
 					</small>
 				</div>
 			</div>
+
+			<small className="text-[10px] text-slate-500 italic leading-none">
+				Nota: Il regalo consigliato è calcolato principalmente sui pasti degli
+				adulti e dei bambini (pasto ridotto). I neonati non influenzano il
+				calcolo, ma è importante includerli per una stima più accurata.
+			</small>
 		</div>
 	)
 }

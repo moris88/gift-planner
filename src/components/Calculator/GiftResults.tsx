@@ -3,9 +3,26 @@ import type { CalculationResult } from '../../types'
 
 interface GiftResultsProps {
 	result: CalculationResult
+	adults: number
+	children: number
+	infants: number
 }
 
-export const GiftResults: React.FC<GiftResultsProps> = ({ result }) => {
+export const GiftResults: React.FC<GiftResultsProps> = ({
+	result,
+	adults,
+	children,
+	infants,
+}) => {
+	const totalPeople = adults + children + infants
+	const guestBreakdown = []
+	if (adults > 0)
+		guestBreakdown.push(`${adults} ${adults === 1 ? 'pasto normale' : 'pasti normali'}`)
+	if (children > 0)
+		guestBreakdown.push(`${children} ${children === 1 ? 'ridotto' : 'ridotti'}`)
+	if (infants > 0)
+		guestBreakdown.push(`${infants} ${infants === 1 ? 'neonato' : 'neonati'}`)
+
 	return (
 		<section className="flex flex-col items-center justify-center space-y-6 rounded-2xl bg-rose-500 p-8 text-center text-white shadow-lg shadow-rose-200">
 			<div>
@@ -58,7 +75,7 @@ export const GiftResults: React.FC<GiftResultsProps> = ({ result }) => {
 					Legame: {result.effectiveRelation}
 				</div>
 				<div className="rounded-full bg-white/20 px-4 py-2 pt-2 font-bold text-[10px] uppercase tracking-wider backdrop-blur-sm">
-					Calcolo Effettuato in base ai parametri inseriti ✨
+					Calcolo effettuato su: {totalPeople} {totalPeople === 1 ? 'Persona' : 'Persone'} ({guestBreakdown.join(', ')})
 				</div>
 			</div>
 		</section>
