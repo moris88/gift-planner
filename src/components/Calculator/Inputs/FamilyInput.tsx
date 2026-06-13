@@ -67,10 +67,7 @@ export const FamilyInput: React.FC<FamilyInputProps> = ({
 					</small>
 				</div>
 				<div className="space-y-2">
-					<label
-						htmlFor="infants"
-						className="flex items-center gap-2 text-sm"
-					>
+					<label htmlFor="infants" className="flex items-center gap-2 text-sm">
 						<Baby className="h-4 w-4" /> Neonati
 					</label>
 					<select
