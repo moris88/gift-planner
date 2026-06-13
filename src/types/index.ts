@@ -41,6 +41,7 @@ export interface UserPreferences {
 	customPlateMax: number
 	ral: number
 	hasInvestments: boolean
+	hasSerenata: boolean
 	generosity: GenerosityType
 	isPhysicalGift: boolean
 	physicalGiftAmount: number

@@ -16,6 +16,7 @@ interface AdditionalDetailsProps {
 	hotelNightCost: number
 	customPlateMin: number
 	customPlateMax: number
+	hasSerenata: boolean
 	updatePref: <K extends keyof UserPreferences>(
 		key: K,
 		value: UserPreferences[K],
@@ -37,6 +38,7 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 	hotelNightCost,
 	customPlateMin,
 	customPlateMax,
+	hasSerenata,
 	updatePref,
 }) => {
 	return (
@@ -139,6 +141,25 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 						<span className="font-medium text-sm">Location di Lusso</span>
 						<span className="text-[10px] text-slate-500">
 							Resort, ville storiche o cantine rinomate (+ quota)
+						</span>
+					</div>
+				</label>
+
+				<label
+					className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors ${hasSerenata ? 'border-rose-200 bg-rose-50' : 'border-slate-200 bg-slate-50 hover:bg-slate-100'}`}
+				>
+					<input
+						type="checkbox"
+						checked={hasSerenata}
+						onChange={(e) => updatePref('hasSerenata', e.target.checked)}
+						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 accent-rose-500 focus:ring-rose-500"
+					/>
+					<div className="flex flex-col">
+						<span className="font-medium text-sm">
+							Partecipato alla Serenata
+						</span>
+						<span className="text-[10px] text-slate-500">
+							Hai partecipato ai festeggiamenti pre-nozze (+5%)
 						</span>
 					</div>
 				</label>

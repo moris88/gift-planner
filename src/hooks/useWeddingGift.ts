@@ -29,6 +29,7 @@ const DEFAULT_PREFS: UserPreferences = {
 	customPlateMax: 200,
 	ral: 30000,
 	hasInvestments: false,
+	hasSerenata: false,
 	generosity: 'normal',
 	isPhysicalGift: false,
 	physicalGiftAmount: 0,
@@ -152,19 +153,14 @@ export const useWeddingGift = () => {
 					? 0.8
 					: 0.6
 
-		// 1. Base Calculation (Using custom plate costs as baseline)
-		// We calculate the raw base first, then apply the relationship weight
-		const relationWeight = data.adult[0] / 180 // Use friend_standard (150-180) as base weight 1.0
-
+		// 1. Base Calculation (Using relationship multipliers on reception costs)
 		let min =
-			(prefs.adults * prefs.customPlateMin +
-				prefs.children * (prefs.customPlateMin * 0.5)) *
-			relationWeight *
+			(prefs.adults * prefs.customPlateMin * data.adult[0] +
+				prefs.children * prefs.customPlateMin * data.child[0]) *
 			region.multiplier
 		let max =
-			(prefs.adults * prefs.customPlateMax +
-				prefs.children * (prefs.customPlateMax * 0.5)) *
-			relationWeight *
+			(prefs.adults * prefs.customPlateMax * data.adult[1] +
+				prefs.children * prefs.customPlateMax * data.child[1]) *
 			region.multiplier
 
 		breakdown.push({
@@ -208,12 +204,12 @@ export const useWeddingGift = () => {
 					value: `Ricalcolato: €${Math.round(min)} - €${Math.round(max)}`,
 				})
 			} else {
-				const deduction = 30
-				min -= deduction
-				max -= deduction
+				const reductionMultiplier = 0.8 // 20% reduction
+				min *= reductionMultiplier
+				max *= reductionMultiplier
 				breakdown.push({
-					label: 'Invitato Secondario (Ulteriore riduzione forfait)',
-					value: `-€${deduction}`,
+					label: 'Invitato Secondario (Ulteriore riduzione forfait -20%)',
+					value: `€${Math.round(min)} - €${Math.round(max)}`,
 				})
 			}
 		}
@@ -251,25 +247,24 @@ export const useWeddingGift = () => {
 					prefs.relation === 'family_cousin' ||
 					prefs.relation === 'family_other')
 			) {
-				const addedMin = prefs.adults * 25
-				const addedMax = prefs.adults * 40
-				min += addedMin
-				max += addedMax
+				const multMin = 1.15 // +15%
+				const multMax = 1.25 // +25%
+				min *= multMin
+				max *= multMax
 				breakdown.push({
-					label: 'Anzianità / Legame Storico',
-					value: `+€${addedMin} - €${addedMax}`,
+					label: 'Anzianità / Legame Storico (+15-25%)',
+					value: `€${Math.round(min)} - €${Math.round(max)}`,
 				})
 			}
 
 			// 6. Luxury
 			if (prefs.isLuxury) {
-				const addedMin = prefs.adults * 30
-				const addedMax = prefs.adults * 50
-				min += addedMin
-				max += addedMax
+				const luxuryMult = 1.2 // +20%
+				min *= luxuryMult
+				max *= luxuryMult
 				breakdown.push({
-					label: 'Location di Lusso',
-					value: `+€${addedMin} - €${addedMax}`,
+					label: 'Location di Lusso (+20%)',
+					value: `€${Math.round(min)} - €${Math.round(max)}`,
 				})
 			}
 		}
@@ -285,32 +280,30 @@ export const useWeddingGift = () => {
 
 		if (prefs.isLongDistance && totalExternalExpenses > 0) {
 			const travelDeduction = totalExternalExpenses * 0.35
-			const prevMin = min
 			min -= travelDeduction
 			max -= travelDeduction
 
 			// Floor logic using custom plate costs
 			const floor =
-				(prefs.adults * prefs.customPlateMin + prefs.children * 50) *
+				(prefs.adults * prefs.customPlateMin +
+					prefs.children * (prefs.customPlateMin * 0.4)) *
 				region.multiplier *
 				eventMultiplier
 
 			if (min < floor) {
-				const actualDeduction = prevMin - floor
 				min = floor
-				max = Math.max(max, floor + 30)
+				max = Math.max(max, floor * 1.1)
 				breakdown.push({
-					label: 'Detrazione Trasferta (Limitata al costo pasto)',
-					value: `-€${Math.round(actualDeduction)}`,
+					label: 'Detrazione Trasferta (Limitata per coprire costo pasto)',
+					value: `€${Math.round(min)} - €${Math.round(max)}`,
 				})
 			} else {
 				breakdown.push({
-					label: 'Detrazione Trasferta (35% spese)',
+					label: 'Detrazione Trasferta (35% spese vive)',
 					value: `-€${Math.round(travelDeduction)}`,
 				})
 			}
 		}
-
 		// 8. Pre-Wedding
 		if (prefs.preWeddingSpend) {
 			const deduction = prefs.preWeddingAmount
@@ -341,6 +334,16 @@ export const useWeddingGift = () => {
 			breakdown.push({
 				label: 'Fondo Investimenti Attivo',
 				value: '-10%',
+			})
+		}
+
+		// 10b. Serenata
+		if (prefs.hasSerenata) {
+			min *= 1.05
+			max *= 1.05
+			breakdown.push({
+				label: 'Partecipazione Serenata',
+				value: '+5%',
 			})
 		}
 

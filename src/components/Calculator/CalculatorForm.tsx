@@ -64,6 +64,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 						hotelNightCost={prefs.hotelNightCost}
 						customPlateMin={prefs.customPlateMin}
 						customPlateMax={prefs.customPlateMax}
+						hasSerenata={prefs.hasSerenata}
 						updatePref={updatePref}
 					/>
 
