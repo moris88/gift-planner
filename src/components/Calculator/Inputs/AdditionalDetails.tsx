@@ -268,7 +268,7 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 						type="checkbox"
 						checked={preWeddingSpend}
 						onChange={(e) => updatePref('preWeddingSpend', e.target.checked)}
-						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500"
+						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 accent-rose-500 focus:ring-rose-500"
 					/>
 					<div className="flex flex-col">
 						<span className="font-medium text-sm">
@@ -287,7 +287,7 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 						type="checkbox"
 						checked={isPhysicalGift}
 						onChange={(e) => updatePref('isPhysicalGift', e.target.checked)}
-						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500"
+						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 accent-rose-500 focus:ring-rose-500"
 					/>
 					<div className="flex flex-col">
 						<span className="font-medium text-sm">
