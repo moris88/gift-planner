@@ -31,7 +31,7 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 			<button
 				type="button"
 				onClick={() => setShowInfo(!showInfo)}
-				className="group flex w-full items-center justify-between"
+				className="group flex w-full cursor-pointer items-center justify-between"
 			>
 				<div className="flex items-center gap-2">
 					<Info className="h-5 w-5 text-rose-500" />

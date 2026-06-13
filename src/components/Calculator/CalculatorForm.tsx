@@ -24,7 +24,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 }) => {
 	return (
 		<div className="space-y-6">
-			<section className="space-y-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+			<section className="space-y-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-rose-300">
 				<div className="flex items-center gap-2 border-slate-100 border-b pb-4">
 					<Calculator className="h-5 w-5 text-rose-500" />
 					<h2 className="font-semibold text-lg">Parametri di Calcolo</h2>
@@ -35,9 +35,8 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 						adults={prefs.adults}
 						infants={prefs.infants}
 						updatePref={updatePref}
-					>
-						{prefs.children}
-					</FamilyInput>
+						kidsCount={prefs.children}
+					/>
 
 					<RelationInput relation={prefs.relation} updatePref={updatePref} />
 
@@ -69,7 +68,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 						type="button"
 						onClick={onCalculate}
 						disabled={isCalculating}
-						className="w-full rounded-xl bg-rose-500 py-4 font-bold text-white shadow-lg shadow-rose-200 transition-all hover:bg-rose-600 hover:shadow-rose-300 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
+						className="w-full cursor-pointer rounded-xl bg-rose-500 py-4 font-bold text-white shadow-lg shadow-rose-200 transition-all hover:bg-rose-600 hover:shadow-rose-300 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
 					>
 						{isCalculating ? 'Calcolo in corso...' : 'Calcola Regalo'}
 					</button>

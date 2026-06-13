@@ -10,7 +10,15 @@ export const Header: React.FC = () => {
 						<Heart className="h-8 w-8 fill-rose-500 text-rose-500" />
 					</div>
 					<div>
-						<h1 className="font-bold text-2xl tracking-tight">Wedding Gift Planner</h1>
+						<h1 className="font-bold text-2xl tracking-tight">
+							<button
+								type="button"
+								onClick={() => window.location.reload()}
+								className="cursor-pointer transition-colors hover:text-rose-500"
+							>
+								Wedding Gift Planner
+							</button>
+						</h1>
 						<p className="text-slate-500 text-sm">
 							Calcola il regalo di matrimonio ideale
 						</p>

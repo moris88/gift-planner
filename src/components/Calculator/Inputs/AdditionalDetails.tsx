@@ -79,11 +79,13 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 							}}
 							className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-2 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500"
 						>
-							{[100, 120, 150, 180, 200, 250, 300, 350, 400, 450, 500].map((v) => (
-								<option key={v} value={v}>
-									€{v}
-								</option>
-							))}
+							{[100, 120, 150, 180, 200, 250, 300, 350, 400, 450, 500].map(
+								(v) => (
+									<option key={v} value={v}>
+										€{v}
+									</option>
+								),
+							)}
 						</select>
 					</div>
 					<span className="mt-4 text-slate-400">-</span>
@@ -103,11 +105,13 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 							}}
 							className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-2 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500"
 						>
-							{[100, 120, 150, 180, 200, 250, 300, 350, 400, 450, 500].map((v) => (
-								<option key={v} value={v}>
-									€{v}
-								</option>
-							))}
+							{[100, 120, 150, 180, 200, 250, 300, 350, 400, 450, 500].map(
+								(v) => (
+									<option key={v} value={v}>
+										€{v}
+									</option>
+								),
+							)}
 						</select>
 					</div>
 				</div>
@@ -118,12 +122,14 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 			</h3>
 
 			<div className="grid grid-cols-1 gap-3">
-				<label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 transition-colors hover:bg-slate-100">
+				<label
+					className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors ${isLuxury ? 'border-rose-200 bg-rose-50' : 'border-slate-200 bg-slate-50 hover:bg-slate-100'}`}
+				>
 					<input
 						type="checkbox"
 						checked={isLuxury}
 						onChange={(e) => updatePref('isLuxury', e.target.checked)}
-						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500"
+						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 accent-rose-500 focus:ring-rose-500"
 					/>
 					<div className="flex flex-col">
 						<span className="font-medium text-sm">Location di Lusso</span>
@@ -133,12 +139,14 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 					</div>
 				</label>
 
-				<label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 transition-colors hover:bg-slate-100">
+				<label
+					className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors ${isLongDistance ? 'border-rose-200 bg-rose-50' : 'border-slate-200 bg-slate-50 hover:bg-slate-100'}`}
+				>
 					<input
 						type="checkbox"
 						checked={isLongDistance}
 						onChange={(e) => updatePref('isLongDistance', e.target.checked)}
-						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500"
+						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 accent-rose-500 focus:ring-rose-500"
 					/>
 					<div className="flex flex-col">
 						<span className="font-medium text-sm">Trasferta Impegnativa</span>
@@ -216,12 +224,14 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 				)}
 
 				{adults <= 2 && (
-					<label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 transition-colors hover:bg-slate-100">
+					<label
+						className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors ${isPlusOne ? 'border-rose-200 bg-rose-50' : 'border-slate-200 bg-slate-50 hover:bg-slate-100'}`}
+					>
 						<input
 							type="checkbox"
 							checked={isPlusOne}
 							onChange={(e) => updatePref('isPlusOne', e.target.checked)}
-							className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500"
+							className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 accent-rose-500 focus:ring-rose-500"
 						/>
 						<div className="flex flex-col">
 							<span className="font-medium text-sm">
@@ -234,7 +244,9 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 					</label>
 				)}
 
-				<label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 transition-colors hover:bg-slate-100">
+				<label
+					className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors ${preWeddingSpend ? 'border-rose-200 bg-rose-50' : 'border-slate-200 bg-slate-50 hover:bg-slate-100'}`}
+				>
 					<input
 						type="checkbox"
 						checked={preWeddingSpend}
