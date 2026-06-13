@@ -4,7 +4,7 @@ import type { UserPreferences } from '../../../types'
 
 interface FamilyInputProps {
 	adults: number
-	children: number
+	kidsCount: number
 	infants: number
 	updatePref: <K extends keyof UserPreferences>(
 		key: K,
@@ -14,7 +14,7 @@ interface FamilyInputProps {
 
 export const FamilyInput: React.FC<FamilyInputProps> = ({
 	adults,
-	children,
+	kidsCount,
 	infants,
 	updatePref,
 }) => {
@@ -50,7 +50,7 @@ export const FamilyInput: React.FC<FamilyInputProps> = ({
 					</label>
 					<select
 						id="children"
-						value={children}
+						value={kidsCount}
 						onChange={(e) =>
 							updatePref('children', parseInt(e.target.value, 10))
 						}
