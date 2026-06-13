@@ -86,7 +86,7 @@ export const ReciprocityInput: React.FC<ReciprocityInputProps> = ({
 							<input
 								type="number"
 								id="receivedAmount"
-								value={receivedAmount}
+								value={receivedAmount || ''}
 								onChange={(e) =>
 									updatePref(
 										'receivedAmount',
@@ -94,7 +94,7 @@ export const ReciprocityInput: React.FC<ReciprocityInputProps> = ({
 									)
 								}
 								className="w-full rounded border border-amber-200 bg-white px-2 py-1.5 text-sm outline-none focus:ring-2 focus:ring-amber-400"
-								placeholder="Es. 300"
+								placeholder="0"
 							/>
 						</div>
 						<div className="space-y-1">
@@ -108,7 +108,7 @@ export const ReciprocityInput: React.FC<ReciprocityInputProps> = ({
 								type="number"
 								id="receivedGroupSize"
 								min="1"
-								value={receivedGroupSize}
+								value={receivedGroupSize || ''}
 								onChange={(e) =>
 									updatePref(
 										'receivedGroupSize',
@@ -116,6 +116,7 @@ export const ReciprocityInput: React.FC<ReciprocityInputProps> = ({
 									)
 								}
 								className="w-full rounded border border-amber-200 bg-white px-2 py-1.5 text-sm outline-none focus:ring-2 focus:ring-amber-400"
+								placeholder="1"
 							/>
 						</div>
 					</div>

@@ -172,15 +172,19 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 								<input
 									type="number"
 									id="travelCostPerPerson"
-									value={travelCostPerPerson}
+									value={travelCostPerPerson || ''}
 									onChange={(e) =>
 										updatePref(
 											'travelCostPerPerson',
 											parseInt(e.target.value, 10) || 0,
 										)
 									}
+									placeholder="0"
 									className="w-full rounded border border-blue-200 bg-white px-2 py-1.5 text-sm outline-none focus:ring-2 focus:ring-blue-400"
 								/>
+								<small className="text-[10px] text-blue-500 italic">
+									Comprensivo AND-RIT
+								</small>
 							</div>
 							<div className="space-y-1">
 								<label
@@ -192,12 +196,17 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 								<input
 									type="number"
 									id="hotelNights"
-									value={hotelNights}
+									min="1"
+									value={hotelNights || ''}
 									onChange={(e) =>
-										updatePref('hotelNights', parseInt(e.target.value, 10) || 0)
+										updatePref('hotelNights', parseInt(e.target.value, 10) || 1)
 									}
+									placeholder="1"
 									className="w-full rounded border border-blue-200 bg-white px-2 py-1.5 text-sm outline-none focus:ring-2 focus:ring-blue-400"
 								/>
+								<small className="text-[10px] text-blue-500 italic">
+									Quante notti rimarrai?
+								</small>
 							</div>
 							<div className="space-y-1 sm:col-span-2">
 								<label
@@ -209,15 +218,19 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 								<input
 									type="number"
 									id="hotelNightCost"
-									value={hotelNightCost}
+									value={hotelNightCost || ''}
 									onChange={(e) =>
 										updatePref(
 											'hotelNightCost',
 											parseInt(e.target.value, 10) || 0,
 										)
 									}
+									placeholder="0"
 									className="w-full rounded border border-blue-200 bg-white px-2 py-1.5 text-sm outline-none focus:ring-2 focus:ring-blue-400"
 								/>
+								<small className="text-[10px] text-blue-500 italic">
+									Il costo che sosterrai a notte in Hotel
+								</small>
 							</div>
 						</div>
 					</div>
@@ -278,7 +291,7 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 							<input
 								type="number"
 								id="preWeddingAmount"
-								value={preWeddingAmount}
+								value={preWeddingAmount || ''}
 								onChange={(e) =>
 									updatePref(
 										'preWeddingAmount',
@@ -286,7 +299,7 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 									)
 								}
 								className="w-full rounded border border-rose-200 bg-white px-2 py-1.5 text-sm outline-none focus:ring-2 focus:ring-rose-400"
-								placeholder="Es. 20"
+								placeholder="0"
 							/>
 						</div>
 					</div>

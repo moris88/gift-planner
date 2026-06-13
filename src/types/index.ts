@@ -1,19 +1,22 @@
 export type RelationType =
+	| 'witness'
 	| 'family_parent'
+	| 'family_grandparent'
 	| 'family_sibling'
-	| 'family_close'
-	| 'family_distant'
-	| 'family_remote'
+	| 'family_uncle'
+	| 'family_nephew'
+	| 'family_cousin'
+	| 'family_other'
 	| 'friend_best'
 	| 'friend_close'
 	| 'friend_standard'
-	| 'witness'
 	| 'colleague'
 
 export type EventType = 'full' | 'half_day' | 'evening'
 export type SeniorityType = 'recent' | 'historical'
 export type ReciprocityType = 'none' | 'received_similar' | 'to_match'
 export type RegionType = 'north' | 'center' | 'south'
+export type GenerosityType = 'normal' | 'medium' | 'high' | 'super'
 
 export interface UserPreferences {
 	adults: number
@@ -36,6 +39,9 @@ export interface UserPreferences {
 	receivedGroupSize: number
 	customPlateMin: number
 	customPlateMax: number
+	ral: number
+	hasInvestments: boolean
+	generosity: GenerosityType
 }
 
 export interface CalculationStep {

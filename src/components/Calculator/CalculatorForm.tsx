@@ -3,6 +3,7 @@ import type React from 'react'
 import type { UserPreferences } from '../../types'
 import { AdditionalDetails } from './Inputs/AdditionalDetails'
 import { FamilyInput } from './Inputs/FamilyInput'
+import { FinancialInput } from './Inputs/FinancialInput'
 import { ReciprocityInput } from './Inputs/ReciprocityInput'
 import { RelationInput } from './Inputs/RelationInput'
 
@@ -61,6 +62,13 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 						hotelNightCost={prefs.hotelNightCost}
 						customPlateMin={prefs.customPlateMin}
 						customPlateMax={prefs.customPlateMax}
+						updatePref={updatePref}
+					/>
+
+					<FinancialInput
+						ral={prefs.ral}
+						hasInvestments={prefs.hasInvestments}
+						generosity={prefs.generosity}
 						updatePref={updatePref}
 					/>
 

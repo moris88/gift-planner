@@ -80,6 +80,9 @@ const App: React.FC = () => {
 								customPlateMin={prefs.customPlateMin}
 								customPlateMax={prefs.customPlateMax}
 								infants={prefs.infants}
+								ral={prefs.ral}
+								hasInvestments={prefs.hasInvestments}
+								generosity={prefs.generosity}
 							/>
 						</div>
 					)}

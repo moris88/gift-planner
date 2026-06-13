@@ -12,37 +12,49 @@ export const RELATION_DATA: Record<
 	witness: {
 		group: 'Ruoli Speciali',
 		label: 'Testimone di Nozze',
-		adult: [500, 700],
+		adult: [500, 800],
 		child: [150, 150],
 	},
 	family_parent: {
-		group: 'Famiglia',
+		group: 'Famiglia (1° Grado)',
 		label: 'Genitore',
 		adult: [600, 1000],
 		child: [150, 150],
 	},
 	family_sibling: {
-		group: 'Famiglia',
+		group: 'Famiglia (2° Grado)',
 		label: 'Fratello / Sorella',
-		adult: [400, 600],
+		adult: [400, 700],
 		child: [150, 150],
 	},
-	family_close: {
-		group: 'Famiglia',
-		label: 'Parente Stretto',
-		adult: [250, 400],
+	family_grandparent: {
+		group: 'Famiglia (2° Grado)',
+		label: 'Nonno / Nonna',
+		adult: [300, 500],
+		child: [150, 150],
+	},
+	family_uncle: {
+		group: 'Famiglia (3° Grado)',
+		label: 'Zio / Zia',
+		adult: [250, 450],
 		child: [100, 100],
 	},
-	family_distant: {
-		group: 'Famiglia',
-		label: 'Cugino / Zio',
-		adult: [180, 250],
+	family_nephew: {
+		group: 'Famiglia (3° Grado)',
+		label: 'Nipote (di Zio/a)',
+		adult: [250, 450],
+		child: [100, 100],
+	},
+	family_cousin: {
+		group: 'Famiglia (4° Grado)',
+		label: 'Cugino / Cugina',
+		adult: [200, 300],
 		child: [80, 100],
 	},
-	family_remote: {
+	family_other: {
 		group: 'Famiglia',
-		label: 'Parente Lontano',
-		adult: [150, 180],
+		label: 'Altro Parente',
+		adult: [150, 200],
 		child: [50, 50],
 	},
 	friend_best: {
@@ -54,7 +66,7 @@ export const RELATION_DATA: Record<
 	friend_close: {
 		group: 'Amici',
 		label: 'Amico Stretto / Gruppo Storico',
-		adult: [180, 220],
+		adult: [180, 250],
 		child: [80, 80],
 	},
 	friend_standard: {

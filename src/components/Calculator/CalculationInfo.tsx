@@ -12,6 +12,9 @@ interface CalculationInfoProps {
 	customPlateMin: number
 	customPlateMax: number
 	infants: number
+	ral: number
+	hasInvestments: boolean
+	generosity: string
 }
 
 export const CalculationInfo: React.FC<CalculationInfoProps> = ({
@@ -23,11 +26,14 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 	customPlateMin,
 	customPlateMax,
 	infants,
+	ral,
+	hasInvestments,
+	generosity,
 }) => {
 	const [showInfo, setShowInfo] = useState(true)
 
 	return (
-		<section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+		<section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-rose-300">
 			<button
 				type="button"
 				onClick={() => setShowInfo(!showInfo)}
@@ -94,6 +100,30 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 								già contribuito alle spese degli eventi pre-matrimoniali.
 							</p>
 						)}
+
+						{ral < 20000 && (
+							<div className="rounded-lg border-orange-400 border-l-4 bg-orange-50 p-3 text-orange-800">
+								<strong>💰 Budget Consapevole:</strong> Abbiamo ridotto la stima
+								perché il tuo Budget attuale richiede una gestione più oculata
+								delle spese. Gli sposi capiranno!
+							</div>
+						)}
+
+						{hasInvestments && (
+							<div className="rounded-lg border-emerald-400 border-l-4 bg-emerald-50 p-3 text-emerald-800">
+								<strong>📈 Strategia Patrimoniale:</strong> Avendo investimenti
+								attivi, abbiamo ridotto del 10% la quota liquida del regalo per
+								non intaccare i tuoi piani di risparmio.
+							</div>
+						)}
+
+						{generosity === 'super' && (
+							<div className="rounded-lg border-rose-500 border-l-4 bg-rose-50 p-3 text-rose-800">
+								<strong>💝 Effetto Super Generoso:</strong> Hai scelto di
+								esagerare! La quota è stata incrementata dell'80% per un regalo
+								che non passerà inosservato.
+							</div>
+						)}
 					</div>
 
 					{/* Breakdown Section */}
@@ -116,10 +146,10 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 						</div>
 					</div>
 
-					<div className="border-amber-400 border-l-4 bg-amber-50 p-3 text-amber-800 text-xs italic">
-						Ricorda: queste sono stime basate su convenzioni sociali. Il regalo
-						dovrebbe sempre riflettere le tue reali possibilità e il tuo affetto
-						per la coppia.
+					<div className="rounded-lg border-amber-400 border-l-4 bg-amber-50 p-3 text-amber-800 text-xs italic">
+						⚠️ Ricorda: queste sono stime basate su convenzioni sociali. Il
+						regalo dovrebbe sempre riflettere le tue reali possibilità e il tuo
+						affetto per la coppia.
 					</div>
 				</div>
 			)}

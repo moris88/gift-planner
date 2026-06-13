@@ -21,18 +21,36 @@ const DEFAULT_PREFS: UserPreferences = {
 	preWeddingSpend: false,
 	preWeddingAmount: 20,
 	travelCostPerPerson: 0,
-	hotelNights: 0,
+	hotelNights: 1,
 	hotelNightCost: 80,
 	receivedAmount: 0,
 	receivedGroupSize: 1,
 	customPlateMin: 150,
 	customPlateMax: 200,
+	ral: 30000,
+	hasInvestments: false,
+	generosity: 'normal',
 }
 
 const REGION_FACTORS = {
 	north: { label: 'Nord Italia', multiplier: 1.15 },
 	center: { label: 'Centro Italia', multiplier: 1.0 },
 	south: { label: 'Sud Italia', multiplier: 0.9 },
+}
+
+const GENEROSITY_FACTORS = {
+	normal: { label: 'Normale', multiplier: 1.0 },
+	medium: { label: 'Media', multiplier: 1.2 },
+	high: { label: 'Alta', multiplier: 1.4 },
+	super: { label: 'Super generoso', multiplier: 1.8 },
+}
+
+const getRALMultiplier = (ral: number) => {
+	if (ral < 20000) return 0.8
+	if (ral < 35000) return 1.0
+	if (ral < 55000) return 1.2
+	if (ral < 80000) return 1.4
+	return 1.6
 }
 
 export const useWeddingGift = () => {
@@ -228,8 +246,8 @@ export const useWeddingGift = () => {
 			if (
 				prefs.seniority === 'historical' &&
 				(prefs.relation.includes('friend') ||
-					prefs.relation === 'family_distant' ||
-					prefs.relation === 'family_remote')
+					prefs.relation === 'family_cousin' ||
+					prefs.relation === 'family_other')
 			) {
 				const addedMin = prefs.adults * 25
 				const addedMax = prefs.adults * 40
@@ -299,6 +317,40 @@ export const useWeddingGift = () => {
 			breakdown.push({
 				label: `Spese Pre-Matrimoniali (Quota: €${deduction})`,
 				value: `-€${deduction}`,
+			})
+		}
+
+		// 9. RAL / Economic Context
+		const ralMultiplier = getRALMultiplier(prefs.ral)
+		if (ralMultiplier !== 1.0) {
+			min *= ralMultiplier
+			max *= ralMultiplier
+			const diff = Math.round((ralMultiplier - 1) * 100)
+			breakdown.push({
+				label: `Capacità di spesa (RAL €${prefs.ral.toLocaleString()})`,
+				value: `${diff > 0 ? '+' : ''}${diff}%`,
+			})
+		}
+
+		// 10. Investments
+		if (prefs.hasInvestments) {
+			min *= 0.9
+			max *= 0.9
+			breakdown.push({
+				label: 'Fondo Investimenti Attivo',
+				value: '-10%',
+			})
+		}
+
+		// 11. Generosity
+		const generosity = GENEROSITY_FACTORS[prefs.generosity]
+		if (generosity.multiplier !== 1.0) {
+			min *= generosity.multiplier
+			max *= generosity.multiplier
+			const diff = Math.round((generosity.multiplier - 1) * 100)
+			breakdown.push({
+				label: `Livello Generosità (${generosity.label})`,
+				value: `+${diff}%`,
 			})
 		}
 
