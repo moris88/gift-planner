@@ -18,6 +18,8 @@ export const FamilyInput: React.FC<FamilyInputProps> = ({
 	infants,
 	updatePref,
 }) => {
+	const options = Array.from({ length: 11 }, (_, i) => i)
+
 	return (
 		<div className="space-y-4">
 			<h3 className="font-medium text-slate-500 text-sm uppercase tracking-wider">
@@ -29,31 +31,37 @@ export const FamilyInput: React.FC<FamilyInputProps> = ({
 					<label htmlFor="adults" className="flex items-center gap-2 text-sm">
 						<Users className="h-4 w-4" /> Adulti
 					</label>
-					<input
-						type="number"
+					<select
 						id="adults"
-						min="1"
 						value={adults}
-						onChange={(e) =>
-							updatePref('adults', parseInt(e.target.value, 10) || 0)
-						}
+						onChange={(e) => updatePref('adults', parseInt(e.target.value, 10))}
 						className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
-					/>
+					>
+						{options.slice(1).map((n) => (
+							<option key={n} value={n}>
+								{n}
+							</option>
+						))}
+					</select>
 				</div>
 				<div className="space-y-2">
 					<label htmlFor="children" className="flex items-center gap-2 text-sm">
 						<Baby className="h-4 w-4" /> Bambini
 					</label>
-					<input
-						type="number"
+					<select
 						id="children"
-						min="0"
 						value={children}
 						onChange={(e) =>
-							updatePref('children', parseInt(e.target.value, 10) || 0)
+							updatePref('children', parseInt(e.target.value, 10))
 						}
 						className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
-					/>
+					>
+						{options.map((n) => (
+							<option key={n} value={n}>
+								{n}
+							</option>
+						))}
+					</select>
 				</div>
 				<div className="space-y-2">
 					<label
@@ -62,16 +70,20 @@ export const FamilyInput: React.FC<FamilyInputProps> = ({
 					>
 						<Baby className="h-4 w-4" /> Neonati
 					</label>
-					<input
-						type="number"
+					<select
 						id="infants"
-						min="0"
 						value={infants}
 						onChange={(e) =>
-							updatePref('infants', parseInt(e.target.value, 10) || 0)
+							updatePref('infants', parseInt(e.target.value, 10))
 						}
 						className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
-					/>
+					>
+						{options.map((n) => (
+							<option key={n} value={n}>
+								{n}
+							</option>
+						))}
+					</select>
 				</div>
 			</div>
 		</div>
