@@ -9,6 +9,8 @@ interface AdditionalDetailsProps {
 	isPlusOne: boolean
 	preWeddingSpend: boolean
 	preWeddingAmount: number
+	isPhysicalGift: boolean
+	physicalGiftAmount: number
 	travelCostPerPerson: number
 	hotelNights: number
 	hotelNightCost: number
@@ -28,6 +30,8 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 	isPlusOne,
 	preWeddingSpend,
 	preWeddingAmount,
+	isPhysicalGift,
+	physicalGiftAmount,
 	travelCostPerPerson,
 	hotelNights,
 	hotelNightCost,
@@ -276,6 +280,57 @@ export const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({
 					</div>
 				</label>
 
+				<label
+					className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-colors ${isPhysicalGift ? 'border-rose-200 bg-rose-50' : 'border-slate-200 bg-slate-50 hover:bg-slate-100'}`}
+				>
+					<input
+						type="checkbox"
+						checked={isPhysicalGift}
+						onChange={(e) => updatePref('isPhysicalGift', e.target.checked)}
+						className="mt-0.5 h-5 w-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500"
+					/>
+					<div className="flex flex-col">
+						<span className="font-medium text-sm">
+							Ho già fatto un regalo fisico
+						</span>
+						<span className="text-[10px] text-slate-500">
+							Elettrodomestici, lista nozze o oggetti già consegnati
+						</span>
+					</div>
+				</label>
+
+				{isPhysicalGift && (
+					<div className="fade-in zoom-in animate-in space-y-4 rounded-xl border border-rose-100 bg-rose-50 p-4 duration-200">
+						<p className="font-semibold text-rose-600 text-xs uppercase">
+							Dettaglio Regalo Fisico
+						</p>
+						<div className="space-y-2">
+							<label
+								htmlFor="physicalGiftAmount"
+								className="font-bold text-[10px] text-rose-500 uppercase"
+							>
+								Valore del regalo fisico (€)
+							</label>
+							<input
+								type="number"
+								id="physicalGiftAmount"
+								value={physicalGiftAmount || ''}
+								onChange={(e) =>
+									updatePref(
+										'physicalGiftAmount',
+										parseInt(e.target.value, 10) || 0,
+									)
+								}
+								className="w-full rounded border border-rose-200 bg-white px-2 py-1.5 text-sm outline-none focus:ring-2 focus:ring-rose-400"
+								placeholder="Lascia vuoto per riduzione fissa del 20%"
+							/>
+							<p className="text-[10px] text-rose-400 leading-tight">
+								* Se non inserisci una cifra, il sistema applicherà una
+								riduzione forfettaria del 20% sulla busta finale.
+							</p>
+						</div>
+					</div>
+				)}
 				{preWeddingSpend && (
 					<div className="fade-in zoom-in animate-in space-y-4 rounded-xl border border-rose-100 bg-rose-50 p-4 duration-200">
 						<p className="font-semibold text-rose-600 text-xs uppercase">

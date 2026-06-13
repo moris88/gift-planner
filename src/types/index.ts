@@ -42,6 +42,8 @@ export interface UserPreferences {
 	ral: number
 	hasInvestments: boolean
 	generosity: GenerosityType
+	isPhysicalGift: boolean
+	physicalGiftAmount: number
 }
 
 export interface CalculationStep {

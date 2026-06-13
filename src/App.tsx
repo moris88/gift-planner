@@ -83,6 +83,8 @@ const App: React.FC = () => {
 								ral={prefs.ral}
 								hasInvestments={prefs.hasInvestments}
 								generosity={prefs.generosity}
+								isPhysicalGift={prefs.isPhysicalGift}
+								physicalGiftAmount={prefs.physicalGiftAmount}
 							/>
 						</div>
 					)}

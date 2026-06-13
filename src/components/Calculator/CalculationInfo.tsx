@@ -15,6 +15,8 @@ interface CalculationInfoProps {
 	ral: number
 	hasInvestments: boolean
 	generosity: string
+	isPhysicalGift: boolean
+	physicalGiftAmount: number
 }
 
 export const CalculationInfo: React.FC<CalculationInfoProps> = ({
@@ -29,6 +31,8 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 	ral,
 	hasInvestments,
 	generosity,
+	isPhysicalGift,
+	physicalGiftAmount,
 }) => {
 	const [showInfo, setShowInfo] = useState(true)
 
@@ -122,6 +126,18 @@ export const CalculationInfo: React.FC<CalculationInfoProps> = ({
 								<strong>💝 Effetto Super Generoso:</strong> Hai scelto di
 								esagerare! La quota è stata incrementata dell'80% per un regalo
 								che non passerà inosservato.
+							</div>
+						)}
+
+						{isPhysicalGift && (
+							<div className="rounded-lg border-purple-400 border-l-4 bg-purple-50 p-3 text-purple-800">
+								<strong>🎁 Regalo Fisico Consegnato:</strong> Poiché hai già
+								donato un oggetto o contribuito alla lista nozze, abbiamo
+								ridotto la quota in contanti{' '}
+								{physicalGiftAmount > 0
+									? `di €${physicalGiftAmount}`
+									: 'del 20%'}{' '}
+								per bilanciare il tuo contributo totale.
 							</div>
 						)}
 					</div>

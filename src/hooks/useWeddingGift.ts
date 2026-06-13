@@ -30,6 +30,8 @@ const DEFAULT_PREFS: UserPreferences = {
 	ral: 30000,
 	hasInvestments: false,
 	generosity: 'normal',
+	isPhysicalGift: false,
+	physicalGiftAmount: 0,
 }
 
 const REGION_FACTORS = {
@@ -352,6 +354,26 @@ export const useWeddingGift = () => {
 				label: `Livello Generosità (${generosity.label})`,
 				value: `+${diff}%`,
 			})
+		}
+
+		// 12. Physical Gift
+		if (prefs.isPhysicalGift) {
+			if (prefs.physicalGiftAmount > 0) {
+				const deduction = prefs.physicalGiftAmount
+				min -= deduction
+				max -= deduction
+				breakdown.push({
+					label: `Regalo Fisico Già Consegnato (Valore: €${deduction})`,
+					value: `-€${deduction}`,
+				})
+			} else {
+				min *= 0.8
+				max *= 0.8
+				breakdown.push({
+					label: 'Regalo Fisico Già Consegnato (Valore non indicato)',
+					value: '-20%',
+				})
+			}
 		}
 
 		// Helper to round up to nearest 50
